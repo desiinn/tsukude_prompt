@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文章例コピーページ</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #92CBC6 0%, #ffffff 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            color: #2c5f5d;
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .text-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .card-title {
+            font-size: 1.3em;
+            color: #333;
+            font-weight: bold;
+        }
+        
+        .copy-btn {
+            background: linear-gradient(135deg, #92CBC6 0%, #6db5ad 100%);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .copy-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+        }
+        
+        .copy-btn:active {
+            transform: scale(0.95);
+        }
+        
+        .copy-btn.copied {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+        }
+        
+        .text-content {
+            color: #333;
+            line-height: 1.8;
+            font-size: 15px;
+            white-space: pre-wrap;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 4px solid #92CBC6;
+        }
+        
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #333;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📋 文章例コピーページ</h1>
+        
+        <div class="text-card">
+            <div class="card-header">
+                <div class="card-title">ビジネスメール例（お礼）</div>
+                <button class="copy-btn" onclick="copyText(this, 0)">コピー</button>
+            </div>
+            <div class="text-content" data-text-id="0">お世話になっております。
+株式会社〇〇の△△です。
+
+先日はお忙しい中、貴重なお時間をいただきありがとうございました。
+いただいたご意見を参考に、プロジェクトを進めてまいります。
+
+今後ともよろしくお願いいたします。</div>
+        </div>
+        
+        <div class="text-card">
+            <div class="card-header">
+                <div class="card-title">自己紹介文例</div>
+                <button class="copy-btn" onclick="copyText(this, 1)">コピー</button>
+            </div>
+            <div class="text-content" data-text-id="1">はじめまして、山田太郎と申します。
+
+Web開発を専門としており、特にフロントエンド技術に興味があります。
+ユーザーにとって使いやすく、見た目も美しいWebサイトを作ることを心がけています。
+
+趣味は読書と旅行で、新しい場所を訪れることが大好きです。
+どうぞよろしくお願いいたします。</div>
+        </div>
+        
+        <div class="text-card">
+            <div class="card-header">
+                <div class="card-title">お詫びメール例</div>
+                <button class="copy-btn" onclick="copyText(this, 2)">コピー</button>
+            </div>
+            <div class="text-content" data-text-id="2">お世話になっております。
+
+この度は、納期遅延により多大なるご迷惑をおかけし、誠に申し訳ございません。
+
+原因を究明し、再発防止に努めてまいります。
+今後はこのようなことがないよう、管理体制を強化いたします。
+
+何卒ご容赦くださいますよう、お願い申し上げます。</div>
+        </div>
+        
+        <div class="text-card">
+            <div class="card-header">
+                <div class="card-title">会議案内文例</div>
+                <button class="copy-btn" onclick="copyText(this, 3)">コピー</button>
+            </div>
+            <div class="text-content" data-text-id="3">各位
+
+下記の通り、定例会議を開催いたします。
+
+【日時】2024年12月1日（金）14:00～15:00
+【場所】第1会議室
+【議題】
+・プロジェクト進捗報告
+・次期計画について
+・その他
+
+ご多忙中とは存じますが、ご出席のほどよろしくお願いいたします。</div>
+        </div>
+        
+        <div class="text-card">
+            <div class="card-header">
+                <div class="card-title">問い合わせ文例</div>
+                <button class="copy-btn" onclick="copyText(this, 4)">コピー</button>
+            </div>
+            <div class="text-content" data-text-id="4">お問い合わせ担当者様
+
+貴社製品について、詳細をお伺いしたく、ご連絡いたしました。
+
+【お問い合わせ内容】
+・製品の仕様について
+・価格と納期について
+・サポート体制について
+
+お手数ですが、上記についてご回答いただけますと幸いです。
+何卒よろしくお願いいたします。</div>
+        </div>
+    </div>
+    
+    <div class="toast" id="toast">コピーしました！</div>
+    
+    <script>
+        function copyText(button, id) {
+            const textElement = document.querySelector(`[data-text-id="${id}"]`);
+            const text = textElement.textContent;
+            
+            navigator.clipboard.writeText(text).then(() => {
+                // ボタンの表示を変更
+                const originalText = button.textContent;
+                button.textContent = '✓ コピー完了';
+                button.classList.add('copied');
+                
+                // トースト通知を表示
+                showToast();
+                
+                // 2秒後に元に戻す
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.classList.remove('copied');
+                }, 2000);
+            }).catch(err => {
+                console.error('コピーに失敗しました:', err);
+                alert('コピーに失敗しました。');
+            });
+        }
+        
+        function showToast() {
+            const toast = document.getElementById('toast');
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
